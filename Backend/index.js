@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-
+//use methods
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
@@ -28,6 +28,7 @@ const user = mongoose.model("users", usersSchema);
 app.get('/users', (req, res)=> {
   user.find()
   .then(users => res.json(users))
+  .catch(err => res.status(400).send('Error fetching items: ' + err));
 })
 
 
