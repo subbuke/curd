@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 // database connection
-mongoose.connect('mongodb+srv://subramanyamchowdam7654:subbu1919@cluster2.0ybx9.mongodb.net/project?retryWrites=true&w=majority&appName=Cluster2')
+ mongoose.connect('mongodb+srv://subramanyamchowdam7654:subbu1919@cluster1.0ybx9.mongodb.net/admin123?retryWrites=true&w=majority&appName=Cluster1')
 .then(() => {
     console.log("database connected successfully");
 })
@@ -19,7 +19,7 @@ mongoose.connect('mongodb+srv://subramanyamchowdam7654:subbu1919@cluster2.0ybx9.
 //schema model
 const usersSchema = new mongoose.Schema({
     name: String,
-    age: Number
+    age: String
 })
 
 const user = mongoose.model("users", usersSchema);
@@ -32,6 +32,7 @@ app.get('/users', (req, res)=> {
 })
 
 
+
 app.get('/', (req, res) => {
    res.send("server running successfully");
 });
@@ -40,7 +41,7 @@ app.get('/second', (req, res) => {
       res.send("second also")
 })
 
-const PORT = 5000;
+const PORT = 5002;
 app.listen(PORT, ()=> {
     console.log("server running successfully");
 })
