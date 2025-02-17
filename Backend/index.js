@@ -2,11 +2,10 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
-const bodyParser = require('body-parser');
+
 
 //use methods
 app.use(cors());
-app.use(bodyParser.json());
 app.use(express.json());
 
 // database connection
@@ -31,6 +30,23 @@ app.get('/users', (req, res)=> {
   .catch(err => res.status(400).send('Error fetching items: ' + err));
 })
 
+//post request
+app.post('/post', (req, res) => {
+    const { name, age } = req.body;
+    
+    // Create a new user instance
+    const newUser = new user({
+        name: name,
+        age: age
+    });
+
+    // Save the new user to the database
+    newUser.save()
+        .then(() => res.status(201).json({ message: 'User added successfully' }))
+        .catch(err => res.status(400).send('Error adding user: ' + err));
+})
+
+
 
 
 app.get('/', (req, res) => {
@@ -41,7 +57,7 @@ app.get('/second', (req, res) => {
       res.send("second also")
 })
 
-const PORT = 5002;
+const PORT = 5001;
 app.listen(PORT, ()=> {
     console.log("server running successfully");
 })
