@@ -2,10 +2,10 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+app.use(cors({ origin: '*' })); // Allows all origins
 
 //use methods
-app.use(cors());
+
 app.use(express.json());
 
 // database connection
@@ -31,7 +31,7 @@ app.get('/users', (req, res)=> {
 })
 
 //post request
-app.post('/post', (req, res) => {
+app.post('/api/post', (req, res) => {
     const { name, age } = req.body;
     
     // Create a new user instance
@@ -58,6 +58,6 @@ app.get('/second', (req, res) => {
 })
 
 const PORT = 5001;
-app.listen(PORT, ()=> {
+app.listen(PORT, "0.0.0.0",()=> {
     console.log("server running successfully");
 })
