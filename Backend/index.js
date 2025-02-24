@@ -46,8 +46,28 @@ app.post('/api/post', (req, res) => {
         .catch(err => res.status(400).send('Error adding user: ' + err));
 })
 
+//Delete method
+app.delete('/api/delete/:id', (req, res) => {
+    const { id } = req.params;
+    user.findByIdAndDelete(id)
+    .then(() => res.json({message: "user deleted sucessfully"}))
+    .catch(err => res.status(400).send('error deleting user' + err))
+})
 
+//update method
+app.put('/api/update/:id', (req, res) => {
+    const { id } = req.params;
+    const { name, age } = req.body;
 
+    user.findByIdAndUpdate(id, { name, age}, { new: true})
+    .then(updatedUser => {
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.json({ message: "User updated successfully", user: updatedUser });
+    })
+    .catch(err => res.status(400).send('Error updating user: ' + err));
+})
 
 app.get('/', (req, res) => {
    res.send("server running successfully");
